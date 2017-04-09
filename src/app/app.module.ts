@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {BoeiPage} from "../pages/boei/boei";
+import {GoogleMaps} from "@ionic-native/google-maps";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {BoeiPage} from "../pages/boei/boei";
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    GoogleMaps
   ]
 })
 export class AppModule {}
