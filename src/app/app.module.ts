@@ -8,6 +8,10 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {BoeiPage} from "../pages/boei/boei";
 import {GoogleMaps} from "@ionic-native/google-maps";
+import {HttpModule} from "@angular/http";
+import {SailData} from "../providers/sail-data";
+import { Geolocation } from '@ionic-native/geolocation';
+import {MapProvider} from "../providers/map-provider";
 
 @NgModule({
   declarations: [
@@ -17,6 +21,7 @@ import {GoogleMaps} from "@ionic-native/google-maps";
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -28,8 +33,11 @@ import {GoogleMaps} from "@ionic-native/google-maps";
   providers: [
     StatusBar,
     SplashScreen,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    GoogleMaps
+    GoogleMaps,
+    SailData,
+    MapProvider
   ]
 })
 export class AppModule {}

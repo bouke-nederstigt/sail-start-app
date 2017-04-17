@@ -1,15 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
+import {MapProvider} from "../../providers/map-provider";
 
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  LatLng,
-  CameraPosition,
-  MarkerOptions,
-  Marker,
-} from '@ionic-native/google-maps';
 
 @Component({
   selector: 'page-boei',
@@ -17,44 +9,12 @@ import {
 })
 export class BoeiPage {
 
-  map: GoogleMap;
 
-  constructor(public navCtrl: NavController, public platform: Platform) {
+  constructor(public navCtrl: NavController, public platform: Platform, private mapProvider: MapProvider) {
     platform.ready().then(() => {
-      this.loadMap();
+      mapProvider.loadMap()
     });
   }
 
-  loadMap(){
-
-    let location = new LatLng(-34.9290,138.6010);
-
-    this.map = new GoogleMap('map', {
-      'backgroundColor': 'white',
-      'controls': {
-        'compass': true,
-        'myLocationButton': true,
-        'indoorPicker': true,
-        'zoom': true
-      },
-      'gestures': {
-        'scroll': true,
-        'tilt': true,
-        'rotate': true,
-        'zoom': true
-      },
-      'camera': {
-        'latLng': location,
-        'tilt': 30,
-        'zoom': 15,
-        'bearing': 50
-      }
-    });
-
-    this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-      console.log('Map is ready!');
-    });
-
-  }
 
 }
