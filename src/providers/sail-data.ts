@@ -17,12 +17,15 @@ export class SailData {
   }
 
   load() {
+    console.log("Start loading markers")
     if (this.data) {
+      console.log("existing data")
+      console.log(this.data)
       return Promise.resolve(this.data);
     }
 
     return new Promise(resolve => {
-      this.http.get('http://localhost:9000/v1/locations')
+      this.http.get('https://quiet-eyrie-34800.herokuapp.com/v1/locations/')
         .map(res => res.json())
         .subscribe(data => {
           this.data = data;

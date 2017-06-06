@@ -7,6 +7,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {HomePage} from '../pages/home/home';
 import {BoeiPage} from "../pages/boei/boei";
 import {SailData} from "../providers/sail-data";
+
 @Component({
   templateUrl: 'app.html'
 })

@@ -11,6 +11,8 @@
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>
   <allow-intent href="sms:*"/>
+  <allow-navigation href="*" />
+  <allow-intent href="*" />
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
   <platform name="android">

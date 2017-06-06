@@ -12,9 +12,17 @@ export class BoeiPage {
 
   constructor(public navCtrl: NavController, public platform: Platform, private mapProvider: MapProvider) {
     platform.ready().then(() => {
-      mapProvider.loadMap()
+      console.log("Platform ready");
     });
   }
 
+  ngAfterViewInit() {
+    console.log("view ready, start loading map");
+    this.mapProvider.loadMap();
+  }
 
+  addMarker() {
+    console.log("adding marker");
+    this.mapProvider.addMarker()
+  }
 }

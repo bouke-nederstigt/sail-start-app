@@ -26,7 +26,7 @@ export class MapProvider {
 
   map: GoogleMap;
 
-  constructor(public http: Http, private sailData: SailData, private geolocation: Geolocation) {
+  constructor(public http: Http, private sailData: SailData, private geolocation: Geolocation, private googleMaps: GoogleMaps) {
     console.log('Hello MapProvider Provider');
   }
 
@@ -55,7 +55,7 @@ export class MapProvider {
   addMarker() {
     let location = this.geolocation.getCurrentPosition().then((position) => {
       let location = new LatLng(position.coords.latitude, position.coords.longitude);
-      
+
       let markerOptions: MarkerOptions = {
         position: new LatLng(position.coords.latitude, position.coords.longitude),
         title: 'Boei'
@@ -74,7 +74,7 @@ export class MapProvider {
       let location = new LatLng(position.coords.latitude, position.coords.longitude);
 
       this.map = new GoogleMap('map', {
-        'backgroundColor': 'white',
+        'backgroundColor': 'black',
         'controls': {
           'compass': true,
           'myLocationButton': true,
