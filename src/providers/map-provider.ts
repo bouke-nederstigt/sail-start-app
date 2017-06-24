@@ -44,8 +44,6 @@ export class MapProvider {
             title: "Marker: " + record.id
           }
 
-          console.log("MarkerOpt:", markOpt);
-
           const marker: Marker = providedMap.addMarker(markOpt)
             .then((marker: Marker) => {
               marker.showInfoWindow();
@@ -54,7 +52,6 @@ export class MapProvider {
       }
     ).catch(error => {
       console.log(error)
-
     });
   }
 
@@ -63,7 +60,7 @@ export class MapProvider {
       let location = new LatLng(position.coords.latitude, position.coords.longitude);
 
       let markerOptions: MarkerOptions = {
-        position: new LatLng(position.coords.latitude, position.coords.longitude),
+        position: location,
         title: 'Boei'
       };
 
@@ -71,6 +68,8 @@ export class MapProvider {
         .then((marker: Marker) => {
           marker.showInfoWindow();
         });
+
+      this.sailData.addLocation(location, "boei")
     });
   }
 

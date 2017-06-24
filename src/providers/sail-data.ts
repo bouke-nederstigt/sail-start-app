@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, Headers, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {LatLng} from "@ionic-native/google-maps";
 
 /*
  Generated class for the SailData provider.
@@ -11,6 +12,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SailData {
   data: any;
+
+  url: string = 'https://quiet-eyrie-34800.herokuapp.com/v1/locations/';
 
   constructor(private http: Http) {
     this.data = null;
@@ -27,7 +30,7 @@ export class SailData {
     console.log("Trying to load web data");
 
     return new Promise(resolve => {
-      this.http.get('https://quiet-eyrie-34800.herokuapp.com/v1/locations/')
+      this.http.get(this.url)
         .map(res => res.json())
         .subscribe(data => {
           this.data = data;
@@ -35,6 +38,25 @@ export class SailData {
         }, error => {
           resolve(error)
         });
+    });
+  }
+
+  addLocation(coordinates: LatLng, title: string) {
+    let header = new Headers({
+      "Content-type": "application/json"
+    });
+    let reqOptions = new RequestOptions({headers: header});
+
+    let body = {
+      id: 2,
+      latitude: coordinates.lat,
+      longitude: coordinates.lng
+    }
+
+    console.log(JSON.stringify(body));
+
+    this.http.post(this.url, JSON.stringify(body), reqOptions).map(res => res.json()).subscribe(data => {
+      console.log(data)
     });
   }
 
