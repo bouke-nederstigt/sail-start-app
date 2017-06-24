@@ -30,11 +30,12 @@ export class MapProvider {
     console.log('Hello MapProvider Provider');
   }
 
-  loadMarkers() {
+  loadMarkers(providedMap) {
+
     this.sailData.load().then(function (markers) {
         console.log("Markers: ", markers);
 
-        let records = markers.data.result;
+        let records = markers;
 
         for (let i = 0; i < records.length; i++) {
           let record = records[i];
@@ -43,13 +44,18 @@ export class MapProvider {
             title: "Marker: " + record.id
           }
 
-          const marker: Marker = this.map.addMarker(markOpt)
+          console.log("MarkerOpt:", markOpt);
+
+          const marker: Marker = providedMap.addMarker(markOpt)
             .then((marker: Marker) => {
               marker.showInfoWindow();
             });
         }
       }
-    );
+    ).catch(error => {
+      console.log(error)
+
+    });
   }
 
   addMarker() {
@@ -97,7 +103,7 @@ export class MapProvider {
 
       this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
         console.log('Map is ready!');
-        this.loadMarkers();
+        this.loadMarkers(this.map);
       });
     }).catch((error) => {
       console.log("Error getting location", error);
