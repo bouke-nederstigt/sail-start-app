@@ -12,12 +12,14 @@ import {HttpModule} from "@angular/http";
 import {SailData} from "../providers/sail-data";
 import { Geolocation } from '@ionic-native/geolocation';
 import {MapProvider} from "../providers/map-provider";
+import {SchipPage} from "../pages/schip/schip";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    BoeiPage
+    BoeiPage,
+    SchipPage
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import {MapProvider} from "../providers/map-provider";
   entryComponents: [
     MyApp,
     HomePage,
-    BoeiPage
+    BoeiPage,
+    SchipPage
   ],
   providers: [
     StatusBar,

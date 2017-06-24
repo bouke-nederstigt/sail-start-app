@@ -10,7 +10,7 @@ import {
   LatLng,
   CameraPosition,
   MarkerOptions,
-  Marker,
+  Marker, Polyline,
 } from '@ionic-native/google-maps';
 
 import {SailData} from "./sail-data";
@@ -107,5 +107,30 @@ export class MapProvider {
     }).catch((error) => {
       console.log("Error getting location", error);
     })
+  }
+
+  trackSchip() {
+    console.log("Start tracking schip");
+    let markers = this.sailData.load().then(function (markers) {
+      return markers;
+    });
+
+
+    this.geolocation.watchPosition().subscribe(function (position) {
+      console.log("markers in tracker", markers);
+      let marker = markers.find(marker => marker.id == 1);
+      console.log("Marker  created", marker);
+      let currentPosition = new LatLng(position.coords.latitude, position.coords.longitude)
+      let markerPosition = new LatLng(marker.latitude, marker.longitude);
+
+      let points = [markerPosition, currentPosition];
+
+      this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+        console.log('Map is ready!');
+        console.log("points", points);
+        this.map.addPolyline({points: points, color: "#AA00FF", width: 10, geodesic: true});
+      });
+
+    });
   }
 }
