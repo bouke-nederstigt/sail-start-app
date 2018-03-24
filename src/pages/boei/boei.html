@@ -4,7 +4,9 @@
       Boei locatie
     </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="addMarker()"><ion-icon name="add"></ion-icon>Add Marker</button>
+      <button ion-button (click)="addMarker('startschip')"><ion-icon name="add"></ion-icon>Mark Startschip</button>
+      <button ion-button (click)="addMarker('bovenboei')"><ion-icon name="add"></ion-icon>Mark bovenboei</button>
+      <button ion-button (click)="addOnderboeiMarker()"><ion-icon name="add"></ion-icon>Bereken onderboei</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>

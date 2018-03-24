@@ -55,21 +55,36 @@ export class MapProvider {
     });
   }
 
-  addMarker() {
+  addMarker(boeiType: string) {
     let location = this.geolocation.getCurrentPosition().then((position) => {
       let location = new LatLng(position.coords.latitude, position.coords.longitude);
 
       let markerOptions: MarkerOptions = {
         position: location,
-        title: 'Boei'
+        title: boeiType
       };
 
-      this.map.addMarker(markerOptions)
-        .then((marker: Marker) => {
-          marker.showInfoWindow();
-        });
+      this.placeMarker(location, markerOptions);
+      this.sailData.addLocation(location, boeiType)
+    });
+  }
 
-      this.sailData.addLocation(location, "boei")
+  placeMarker(location: LatLng, markerOptions: MarkerOptions) {
+    this.map.addMarker(markerOptions)
+      .then((marker: Marker) => {
+        marker.showInfoWindow();
+      });
+  }
+
+  addOnderboeiMarker() {
+    this.sailData.getOnderboeiData().then((onderboei) => {
+      let location = new LatLng(onderboei['latitude'], onderboei['longitude']);
+      let markerOptions: MarkerOptions = {
+        position: location,
+        title: "onderboei"
+      };
+
+      this.placeMarker(location, markerOptions);
     });
   }
 
@@ -115,22 +130,23 @@ export class MapProvider {
       return markers;
     });
 
-
     this.geolocation.watchPosition().subscribe(function (position) {
       console.log("markers in tracker", markers);
-      let marker = markers.find(marker => marker.id == 1);
-      console.log("Marker  created", marker);
-      let currentPosition = new LatLng(position.coords.latitude, position.coords.longitude)
-      let markerPosition = new LatLng(marker.latitude, marker.longitude);
+      // let marker = markers.find(marker => marker.id == 1);
+      markers.then((res) => {
+        let marker = res.find(marker => marker.id == 1)
+        let markerPosition = new LatLng(marker.latitude, marker.longitude);
 
-      let points = [markerPosition, currentPosition];
+        console.log("Marker  created", marker);
+        let currentPosition = new LatLng(position.coords.latitude, position.coords.longitude);
+        let points = [markerPosition, currentPosition];
 
-      this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-        console.log('Map is ready!');
-        console.log("points", points);
-        this.map.addPolyline({points: points, color: "#AA00FF", width: 10, geodesic: true});
+        this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+          console.log('Map is ready!');
+          console.log("points", points);
+          this.map.addPolyline({points: points, color: "#AA00FF", width: 10, geodesic: true});
+        });
       });
-
     });
   }
 }

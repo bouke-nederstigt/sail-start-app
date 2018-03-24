@@ -21,8 +21,13 @@ export class BoeiPage {
     this.mapProvider.loadMap();
   }
 
-  addMarker() {
-    console.log("adding marker");
-    this.mapProvider.addMarker()
+  addMarker(boeiType: string) {
+    console.log("adding marker " + boeiType);
+    this.mapProvider.addMarker(boeiType)
+  }
+
+  addOnderboeiMarker() {
+    console.log("Adding onderboei marker");
+    this.mapProvider.addOnderboeiMarker();
   }
 }
