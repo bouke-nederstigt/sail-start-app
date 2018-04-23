@@ -90,7 +90,7 @@ export class MapProvider {
 
   loadMap() {
 
-    let location = this.geolocation.getCurrentPosition().then((position) => {
+    let location = this.geolocation.getCurrentPosition({timeout: 3000}).then((position) => {
       let location = new LatLng(position.coords.latitude, position.coords.longitude);
 
       this.map = new GoogleMap('map', {
@@ -120,6 +120,7 @@ export class MapProvider {
         this.loadMarkers(this.map);
       });
     }).catch((error) => {
+      console.log(error.message)
       console.log("Error getting location", error);
     })
   }
